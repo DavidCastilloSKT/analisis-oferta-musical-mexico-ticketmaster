@@ -1,0 +1,288 @@
+{
+  "name": "Oferta Musical Mexico V2",
+  "dataColors": [
+    "#6D5BD0",
+    "#2563EB",
+    "#F59E0B",
+    "#10B981",
+    "#EF4444",
+    "#8B5CF6",
+    "#14B8A6",
+    "#64748B"
+  ],
+  "good": "#10B981",
+  "neutral": "#F59E0B",
+  "bad": "#EF4444",
+  "maximum": "#6D5BD0",
+  "center": "#F59E0B",
+  "minimum": "#EDE9FE",
+  "null": "#E5E7EB",
+  "background": "#FFFFFF",
+  "secondaryBackground": "#F6F7FB",
+  "foreground": "#1F2937",
+  "tableAccent": "#6D5BD0",
+  "textClasses": {
+    "callout": {
+      "fontFace": "Segoe UI Semibold",
+      "fontSize": 34,
+      "color": "#1F2937"
+    },
+    "title": {
+      "fontFace": "Segoe UI Semibold",
+      "fontSize": 12,
+      "color": "#1F2937"
+    },
+    "header": {
+      "fontFace": "Segoe UI Semibold",
+      "fontSize": 11,
+      "color": "#1F2937"
+    },
+    "label": {
+      "fontFace": "Segoe UI",
+      "fontSize": 10,
+      "color": "#6B7280"
+    }
+  },
+  "visualStyles": {
+    "*": {
+      "*": {
+        "background": [
+          {
+            "show": true,
+            "color": {
+              "solid": {
+                "color": "#FFFFFF"
+              }
+            },
+            "transparency": 0
+          }
+        ],
+        "border": [
+          {
+            "show": true,
+            "color": {
+              "solid": {
+                "color": "#E5E7EB"
+              }
+            },
+            "radius": 6
+          }
+        ],
+        "visualHeader": [
+          {
+            "show": true,
+            "foreground": {
+              "solid": {
+                "color": "#6B7280"
+              }
+            },
+            "background": {
+              "solid": {
+                "color": "#FFFFFF"
+              }
+            }
+          }
+        ],
+        "title": [
+          {
+            "show": true,
+            "fontColor": {
+              "solid": {
+                "color": "#1F2937"
+              }
+            },
+            "fontSize": 12,
+            "fontFamily": "Segoe UI Semibold"
+          }
+        ]
+      }
+    },
+    "page": {
+      "*": {
+        "background": [
+          {
+            "color": {
+              "solid": {
+                "color": "#F6F7FB"
+              }
+            },
+            "transparency": 0
+          }
+        ]
+      }
+    },
+    "card": {
+      "*": {
+        "labels": [
+          {
+            "color": {
+              "solid": {
+                "color": "#1F2937"
+              }
+            },
+            "fontSize": 32,
+            "fontFamily": "Segoe UI Semibold"
+          }
+        ],
+        "categoryLabels": [
+          {
+            "show": true,
+            "color": {
+              "solid": {
+                "color": "#6B7280"
+              }
+            },
+            "fontSize": 10,
+            "fontFamily": "Segoe UI"
+          }
+        ]
+      }
+    },
+    "barChart": {
+      "*": {
+        "dataPoint": [
+          {
+            "defaultColor": {
+              "solid": {
+                "color": "#6D5BD0"
+              }
+            }
+          }
+        ],
+        "categoryAxis": [
+          {
+            "labelColor": {
+              "solid": {
+                "color": "#4B5563"
+              }
+            },
+            "fontSize": 9
+          }
+        ],
+        "valueAxis": [
+          {
+            "labelColor": {
+              "solid": {
+                "color": "#6B7280"
+              }
+            },
+            "fontSize": 9
+          }
+        ]
+      }
+    },
+    "columnChart": {
+      "*": {
+        "dataPoint": [
+          {
+            "defaultColor": {
+              "solid": {
+                "color": "#6D5BD0"
+              }
+            }
+          }
+        ],
+        "categoryAxis": [
+          {
+            "labelColor": {
+              "solid": {
+                "color": "#4B5563"
+              }
+            },
+            "fontSize": 9
+          }
+        ],
+        "valueAxis": [
+          {
+            "labelColor": {
+              "solid": {
+                "color": "#6B7280"
+              }
+            },
+            "fontSize": 9
+          }
+        ]
+      }
+    },
+    "slicer": {
+      "*": {
+        "background": [
+          {
+            "show": true,
+            "color": {
+              "solid": {
+                "color": "#FFFFFF"
+              }
+            },
+            "transparency": 0
+          }
+        ],
+        "items": [
+          {
+            "fontColor": {
+              "solid": {
+                "color": "#374151"
+              }
+            },
+            "textSize": 10,
+            "fontFamily": "Segoe UI"
+          }
+        ],
+        "header": [
+          {
+            "show": true,
+            "fontColor": {
+              "solid": {
+                "color": "#1F2937"
+              }
+            },
+            "textSize": 10,
+            "fontFamily": "Segoe UI Semibold"
+          }
+        ]
+      }
+    },
+    "tableEx": {
+      "*": {
+        "grid": [
+          {
+            "gridVertical": false,
+            "gridHorizontal": true,
+            "outlineColor": {
+              "solid": {
+                "color": "#E5E7EB"
+              }
+            }
+          }
+        ],
+        "columnHeaders": [
+          {
+            "fontColor": {
+              "solid": {
+                "color": "#1F2937"
+              }
+            },
+            "backColor": {
+              "solid": {
+                "color": "#F6F7FB"
+              }
+            },
+            "fontFamily": "Segoe UI Semibold",
+            "fontSize": 10
+          }
+        ],
+        "values": [
+          {
+            "fontColor": {
+              "solid": {
+                "color": "#374151"
+              }
+            },
+            "fontFamily": "Segoe UI",
+            "fontSize": 9
+          }
+        ]
+      }
+    }
+  }
+}
