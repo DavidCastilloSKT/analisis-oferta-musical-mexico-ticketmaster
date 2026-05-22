@@ -113,6 +113,12 @@ def transform_event(event):
 
     return {
         "event_id": event.get("id"),
+        "event_key": (
+            f"{event.get('query_country_code')}|"
+            f"{event.get('id')}|"
+            f"{venue.get('id')}|"
+            f"{get_nested_value(event, ['dates', 'start', 'localDate'])}"
+        ),
         "event_name": event.get("name"),
         "event_url": event.get("url"),
         "event_date": get_nested_value(event, ["dates", "start", "localDate"]),
@@ -134,6 +140,8 @@ def transform_event(event):
         ),
         "query_country_code": event.get("query_country_code"),
         "venue_id": venue.get("id"),
+        "venue_key": f"{event.get('query_country_code')}|{venue.get('id')}",
+        "venue_name": venue.get("name"),
         "segment": get_nested_value(classification, ["segment", "name"]),
         "genre": get_nested_value(classification, ["genre", "name"]),
         "subgenre": get_nested_value(classification, ["subGenre", "name"]),
@@ -154,7 +162,9 @@ def transform_venue(event):
     venue = get_first_venue(event)
 
     return {
+        "query_country_code": event.get("query_country_code"),
         "venue_id": venue.get("id"),
+        "venue_key": f"{event.get('query_country_code')}|{venue.get('id')}",
         "venue_name": venue.get("name"),
         "venue_url": venue.get("url"),
         "venue_image_url": select_best_image_url(venue.get("images", [])),
@@ -189,6 +199,7 @@ def transform_attraction(attraction):
 
     return {
         "attraction_id": attraction.get("id"),
+        "attraction_key": f"{attraction.get('id')}|{attraction.get('url')}",
         "attraction_name": attraction.get("name"),
         "attraction_type": attraction.get("type"),
         "attraction_url": attraction.get("url"),
@@ -212,6 +223,7 @@ def transform_attraction(attraction):
 
 def build_event_attraction_rows(event):
     event_id = event.get("id")
+    venue = get_first_venue(event)
     attractions = get_nested_value(event, ["_embedded", "attractions"], [])
 
     rows = []
@@ -220,7 +232,14 @@ def build_event_attraction_rows(event):
         rows.append(
             {
                 "event_id": event_id,
+                "event_key": (
+                    f"{event.get('query_country_code')}|"
+                    f"{event_id}|"
+                    f"{venue.get('id')}|"
+                    f"{get_nested_value(event, ['dates', 'start', 'localDate'])}"
+                ),
                 "attraction_id": attraction.get("id"),
+                "attraction_key": f"{attraction.get('id')}|{attraction.get('url')}",
             }
         )
 
@@ -250,9 +269,9 @@ def main():
     dim_attractions_df = pd.DataFrame(attraction_rows)
     bridge_event_attractions_df = pd.DataFrame(event_attraction_rows)
 
-    fact_events_df = fact_events_df.drop_duplicates(subset=["event_id"])
-    dim_venues_df = dim_venues_df.drop_duplicates(subset=["venue_id"])
-    dim_attractions_df = dim_attractions_df.drop_duplicates(subset=["attraction_id"])
+    fact_events_df = fact_events_df.drop_duplicates(subset=["event_key"])
+    dim_venues_df = dim_venues_df.drop_duplicates(subset=["venue_key"])
+    dim_attractions_df = dim_attractions_df.drop_duplicates(subset=["attraction_key"])
     bridge_event_attractions_df = bridge_event_attractions_df.drop_duplicates()
 
     fact_events_df["event_date"] = pd.to_datetime(
