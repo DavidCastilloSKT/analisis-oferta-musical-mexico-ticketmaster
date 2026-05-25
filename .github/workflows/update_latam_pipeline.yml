@@ -1,0 +1,41 @@
+name: Update LATAM Ticketmaster Pipeline
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 12 * * *"
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run LATAM pipeline
+        env:
+          TICKETMASTER_API_KEY: ${{ secrets.TICKETMASTER_API_KEY }}
+        run: python scripts/run_latam_pipeline.py
+
+      - name: Commit updated datasets
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/processed/ticketmaster_events_latam_music.csv
+          git add data/processed/enriched_latam/
+          git diff --cached --quiet || git commit -m "Update LATAM Ticketmaster datasets"
+
+      - name: Push updated datasets
+        run: git push
