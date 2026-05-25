@@ -98,6 +98,23 @@ def detect_suspicious_event(event, venue):
     )
 
 
+def clean_ticketmaster_text(text):
+    if not text:
+        return None
+
+    unwanted_patterns = [
+        "[](http://bit.ly/MétodosDeEntrega_Tm)",
+        "[](http://bit.ly/MetodosDeEntrega_Tm)",
+    ]
+
+    cleaned_text = text
+
+    for pattern in unwanted_patterns:
+        cleaned_text = cleaned_text.replace(pattern, "")
+
+    return " ".join(cleaned_text.split())
+
+
 def get_first_venue(event):
     venues = get_nested_value(event, ["_embedded", "venues"], [])
 
@@ -125,8 +142,8 @@ def transform_event(event):
         "event_time": get_nested_value(event, ["dates", "start", "localTime"]),
         "event_timezone": get_nested_value(event, ["dates", "timezone"]),
         "event_status": get_nested_value(event, ["dates", "status", "code"]),
-        "event_info": event.get("info"),
-        "event_notes": event.get("pleaseNote"),
+        "event_info": clean_ticketmaster_text(event.get("info")),
+        "event_notes": clean_ticketmaster_text(event.get("pleaseNote")),
         "event_image_url": select_best_image_url(event.get("images", [])),
         "seatmap_url": get_nested_value(event, ["seatmap", "staticUrl"]),
         "sales_start": get_nested_value(event, ["sales", "public", "startDateTime"]),
