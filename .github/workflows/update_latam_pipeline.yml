@@ -40,4 +40,4 @@ jobs:
       - name: Push updated datasets
         run: |
           git pull --rebase origin main
-          git push
+          git push origin main
