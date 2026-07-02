@@ -1,5 +1,6 @@
 import json
 import os
+import time
 from pathlib import Path
 
 import pandas as pd
@@ -182,8 +183,22 @@ def fetch_events(country_code):
 
         print(f"Descargando {country_code} - pagina {page + 1} de {total_pages}...")
 
-        response = requests.get(BASE_URL, params=params, timeout=30)
-        response.raise_for_status()
+        max_retries = 3
+        wait_seconds = 60
+
+        for attempt in range(1, max_retries + 1):
+            response = requests.get(BASE_URL, params=params, timeout=30)
+
+            if response.status_code == 429 and attempt < max_retries:
+                print(
+                    f"Limite de API alcanzado para {country_code}. "
+                    f"Esperando {wait_seconds} segundos antes de reintentar..."
+                )
+                time.sleep(wait_seconds)
+                continue
+
+            response.raise_for_status()
+            break
 
         data = response.json()
         page_info = data.get("page", {})
@@ -195,6 +210,7 @@ def fetch_events(country_code):
             event["query_country_code"] = country_code
         all_events.extend(events)
 
+        time.sleep(2)
         page += 1
 
     return all_events
