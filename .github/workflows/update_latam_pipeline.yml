@@ -38,4 +38,6 @@ jobs:
           git diff --cached --quiet || git commit -m "Update LATAM Ticketmaster datasets"
 
       - name: Push updated datasets
-        run: git push
+        run: |
+          git pull --rebase origin main
+          git push

@@ -38,4 +38,6 @@ jobs:
           git diff --cached --quiet || git commit -m "Update Mexico Ticketmaster datasets"
 
       - name: Push updated Mexico datasets
-        run: git push
+        run: |
+          git pull --rebase origin main
+          git push
